@@ -1,0 +1,1 @@
+Get-Mailbox -ResultSize Unlimited -Filter "emailaddresses -notlike '*@contoso.mail.onmicrosoft.com'" |select alias,primarysmtpaddress,database,serverName,@{name="EmailAddresses"; Expression={$_.EmailAddresses -join ","}} |export-csv .\UsersNoProxy.csv -NoTypeInformation
