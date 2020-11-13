@@ -1,0 +1,15 @@
+$NewTeams = Import-CSV -path "C:\Users\SteveCaprio\OneDrive - Daymark Solutions\Desktop\NewTeamsNoFormula.csv"
+
+Foreach ($line in $NewTeams) { 
+
+$group = New-Team -MailNickname $line.MailNickname -displayname $line.DisplayName -Visibility $line.Visibility
+Add-TeamUser -GroupId $group.GroupId -User $line.User1 -role Owner
+Add-TeamUser -GroupId $group.GroupID -User $line.User2 -role Owner
+$GroupName = "$($line.DisplayName) $($line.Permissions)"
+start-sleep 30
+Add-SPOUser -Site "https://pegasystems.sharepoint.com/sites/$($line.MailNickname)" -LoginName $line.GroupAccess -Group $GroupName
+
+Remove-Variable groupname
+}
+
+
